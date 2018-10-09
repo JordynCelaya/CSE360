@@ -1,19 +1,33 @@
+import java.util.LinkedList;
 import java.util.List;
 
 // Activity class with node attributes and methods
 public class Activity {
 	private String name;
 	private int duration;
-	private List<Activity> dependencies;
+	private List<String> dependencies;
+	private List<Activity> nexts;
+	private boolean visited;
 	
-	Activity(String name, int duration, List<Activity> dependencies) {
+	
+	Activity(String name, List<String> dependencies, int duration) {
 		this.name = name;
 		this.duration = duration;
-		this.dependencies = dependencies; 
+		this.dependencies = dependencies;
+		nexts = new LinkedList<Activity>();
+		visited = false;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 
 	public void setName(String name) {
@@ -28,12 +42,26 @@ public class Activity {
 		this.duration = duration;
 	}
 
-	public List<Activity> getDependencies() {
+	public List<String> getDependencies() {
 		return dependencies;
 	}
+	
+	public List<Activity> getNexts() {
+		return nexts;
+	}
 
-	public void setDependencies(List<Activity> dependencies) {
+	public void setNexts(List<Activity> nexts) {
+		this.nexts = nexts;
+	}
+
+	public void setDependencies(List<String> dependencies) {
 		this.dependencies = dependencies;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Activity: " + name;
 	}
 	
 }
