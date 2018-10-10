@@ -54,4 +54,4 @@
  * 
  * <p> The purpose of the activity.exceptions package is to handle exceptions for errors within the activity network.
  */
-package activity.exceptions;
+package activityPackage.exceptions;

@@ -2,8 +2,8 @@ package activityPackage;
 import java.util.LinkedList;
 import java.util.List;
 
-import activity.exceptions.CycleException;
-import activity.exceptions.StandaloneNodeException;
+import activityPackage.exceptions.CycleException;
+import activityPackage.exceptions.StandaloneNodeException;
 
 /**
  * <center>

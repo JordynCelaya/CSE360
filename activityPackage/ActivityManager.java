@@ -2,8 +2,8 @@ package activityPackage;
 import java.util.LinkedList;
 import java.util.List;
 
-import activity.exceptions.CycleException;
-import activity.exceptions.StandaloneNodeException;
+import activityPackage.exceptions.CycleException;
+import activityPackage.exceptions.StandaloneNodeException;
 
 /**
  * <center>
@@ -124,15 +124,33 @@ public class ActivityManager {
 		return activityGraph.getPaths();
 	}
 	
-	// TO DO - see comment on graphify in Graph class
-	public void editActivity() {
-		
+	public void editActivityName(String oldName, String newName) {
+        for (Activity i : nodeList) {
+            if(i.getName() == oldName) { //if the name of the current activity == name
+                i.setName(newName); //set new activity name
+            }
+        }
 	}
-	
-	// TO DO
-	public void deleteActivity() {
-		
+
+	public void editActivityDuration(String name, int newDuration) {
+        for (Activity i : nodeList) {
+            if(i.getName() == name) { //if the name of the current activity == name
+                i.setDuration(newDuration); //set new activity duration
+            }
+        }
+    }
+
+	//the deletion of an activity is just the standard "arbitrary deletion" in a linked list
+	public void deleteActivity(String name) {
+		for (Activity i : nodeList) {
+            if(i.getName() == name) { //if the name of the current activity == name
+                //get the previous activity of the activity to be deleted - call this "previous"
+                //set the next of "previous" to the next of the activity to be deleted
+
+            }
+        }
 	}
+
 	
 }
 	
