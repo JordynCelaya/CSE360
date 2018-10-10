@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-
+import java.util.List; 
+import activityPackage.*;
 
 /**
  * <center>
@@ -71,11 +72,12 @@ public class inputTab extends JPanel {
 	private JButton add;
 	private JPanel p1;
 	private editTab etab;
+	public ActivityManager manager;
 	
 	/**
 	 * Constructor for input tab panel
 	 */
-	public inputTab(){
+	public inputTab(ActivityManager manager){
 		menu = new JLabel("Menu");
 		entName = new JLabel("Enter activity name:");
 		entDep = new JLabel("Enter the dependencies, separated by commas:");
@@ -104,6 +106,7 @@ public class inputTab extends JPanel {
 		add(p1, BorderLayout.NORTH);
 		add(message, BorderLayout.CENTER);
 		add(add, BorderLayout.SOUTH);
+		this.manager = manager;
 		
 	}//end of constructor
 	
@@ -130,17 +133,21 @@ public class inputTab extends JPanel {
 	        	String dependency = deps.getText();
 	        	String s1 = durs.getText();
 	         	int duration = Integer.parseInt(s1);
+	         	List<String> dependencies;
+	         	if (dependency.isEmpty()) {
+	         		dependencies = new LinkedList<>();
+	         	}
+	         	else {
+	         		// Convert
+	         		String[] depends = dependency.split(", ");
+	         		dependencies = Arrays.asList(depends);
+	         	}
 	         	
+	         	manager.addActivity(activity, dependencies, duration);
 	         	
-	         	
-	         	
-	         	String strList = "";
 	        	 	
-	         	//making check boxes and calling addCheckBox method
-	    		etab.addAllAct(activity, dependencies, duration);
-	    	 		
-	         	//INPUT MORE THINGS HERE:
-	    		//add new activity to the path
+	         	message.setText("Activity added");
+	         	
 	         }
 	        //catch exception for when a non-integer value is entered for duration
 	         catch(NumberFormatException ex){

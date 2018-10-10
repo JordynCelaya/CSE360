@@ -1,12 +1,15 @@
 package guiPackage;
 import javax.swing.*;
 
+
 import main.ButtonListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import activityPackage.*;
+
 //import window.java;
 
 /**
@@ -77,13 +80,14 @@ public class main extends JApplet {
 	private JMenu menu1, menu2;	//first and second tab of the menu bar
 	private JButton reset, exit, about, help; //these are submenu items that will drop down from menu1 and menu2
 	Frame title;	//will be used to change the title of the applet window
+	public ActivityManager manager = new ActivityManager(); 
 	
 	public void init() {
 		//constructor used to create the Java frame and initialize all of the private swing variables
 		tPane = new JTabbedPane();
-		itab = new inputTab();
+		itab = new inputTab(manager);
 		etab = new editTab();
-		vtab = new viewTab();
+		vtab = new viewTab(manager);
 		menuBar = new JMenuBar();
 		menu1 = new JMenu("File");
 		menu2 = new JMenu("Help");
@@ -121,6 +125,8 @@ public class main extends JApplet {
 		
 	}//end of constuctor
 	
+	
+	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			JFrame f1 = new JFrame();
@@ -129,7 +135,15 @@ public class main extends JApplet {
 	        	int n = JOptionPane.showConfirmDialog(f1,"Are you sure you would like to clear all activities?","Reset",JOptionPane.YES_NO_OPTION);
 	        	//0 = Yes, 1 = No
 	        	if(n == 0){
-	        		//reset the whole program
+	        		//reset the whole program 
+	        		vtab.clearTArea();
+	        		// ActivityManager newManager = new ActivityManager();
+	        		// manager = newManager;
+	        		manager.setNodeList(new LinkedList<>());
+	        		manager.setHeadList(new LinkedList<>());
+	        		
+	        		
+	        		
 	        	}
 	        	//1 automatically cancels
 	        }

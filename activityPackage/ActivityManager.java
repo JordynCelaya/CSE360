@@ -74,7 +74,7 @@ public class ActivityManager {
 	 * Constructor for the ActivityManager class.
 	 * 
 	 */
-	ActivityManager() {
+	public ActivityManager() {
 		headList = new LinkedList<Activity>();
 		nodeList = new LinkedList<Activity>();
 	}
@@ -86,10 +86,27 @@ public class ActivityManager {
 	 * @param depends the dependencies of this activity
 	 * @param duration the duration of this activity
 	 */
-	private void addHead(String name, LinkedList<String> depends, int duration) {
+	private void addHead(String name, List<String> depends, int duration) {
 		Activity temp = new Activity(name, depends, duration);
 		nodeList.add(temp);
 		headList.add(temp);
+		System.out.println("head added");
+	}
+
+	public LinkedList<Activity> getNodeList() {
+		return nodeList;
+	}
+
+	public void setNodeList(LinkedList<Activity> nodeList) {
+		this.nodeList = nodeList;
+	}
+
+	public LinkedList<Activity> getHeadList() {
+		return headList;
+	}
+
+	public void setHeadList(LinkedList<Activity> headList) {
+		this.headList = headList;
 	}
 
 	/**
@@ -99,13 +116,17 @@ public class ActivityManager {
 	 * @param depends the dependencies of this activity
 	 * @param duration the duration of this activity
 	 */
-	public void addActivity(String name, LinkedList<String> depends, int duration) {
+	public void addActivity(String name, List<String> depends, int duration) {
 		if (depends.size() == 0) {
 			addHead(name, depends, duration);
 		}
 		else {
 			Activity temp = new Activity(name, depends, duration);
 			nodeList.add(temp);
+			System.out.println("Added");
+			for (Activity a: nodeList) {
+				System.out.println(a);
+			}
 		}
 	}
 	
@@ -119,9 +140,15 @@ public class ActivityManager {
 	 * @throws CycleException
 	 */
 	public List<String> viewPath() throws StandaloneNodeException, CycleException {
+		System.out.println("ViewPaths");
 		activityGraph = new Graph(headList, nodeList);
 		activityGraph.graphify();
-		return activityGraph.getPaths();
+		System.out.println("Getting Paths");
+		List<String> output = activityGraph.getPaths();
+		for (String s: output) {
+			System.out.println(s);
+		}
+		return output;
 	}
 	
 	public void editActivityName(String oldName, String newName) {

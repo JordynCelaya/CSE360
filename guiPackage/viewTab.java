@@ -1,6 +1,14 @@
 package guiPackage;
 import java.awt.*;
 import javax.swing.*;
+import activityPackage.*;
+import activityPackage.exceptions.CycleException;
+import activityPackage.exceptions.StandaloneNodeException;
+
+import java.awt.event.*;
+import java.util.List;
+import activityPackage.*;
+
 /**
  * <center>
  * <table cellpadding="5" cellspacing="5">
@@ -60,25 +68,58 @@ import javax.swing.*;
  */
 public class viewTab extends JPanel{
 	//private Panel p1;
-	private JTextArea area;
+	private static JTextArea area;
 	private JScrollPane spane;
+	private JButton b1;
+	public ActivityManager manager; 
 	
 	/**
 	 * Constructor for viewTab panel
 	 */
-	public viewTab(){
+	public viewTab(ActivityManager manager){
 		area = new JTextArea(20,40);
 		area.setEditable(false);	//prevents the user from inputting anything
 		area.setText("No paths to display");
 		spane = new JScrollPane(area);
+		b1 = new JButton("Run");
+		ButtonListener lis = new ButtonListener();
+		b1.addActionListener(lis);
+		this.manager = manager;
 		
-		add(spane);
+		setLayout(new BorderLayout());
+		
+		add(spane, BorderLayout.CENTER);
+		add(b1, BorderLayout.SOUTH);
 	}
 	/**
 	 * Adds a path and puts it into the text area so it can be displayed to the user
 	 */
-	public void addPath(){
-		
+	
+	public static void clearTArea() {
+		area.setText("");
+	}
+	
+	private class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event) {
+			try {
+				System.out.println("About to view run");
+				List<String> output = manager.viewPath();
+				for (String s: output) {
+					System.out.println(s);
+				}
+				String singleOutput = "";
+				for (String s: output) {
+					singleOutput += s + "\n";  
+				}
+				area.setText(singleOutput);
+				
+			} catch (StandaloneNodeException e) {
+				area.setText("Error: Standalone Node Detected");
+			} catch (CycleException e) {
+				area.setText("Error: Cycle Detected");
+			}
+			
+		}
 	}
 
 }

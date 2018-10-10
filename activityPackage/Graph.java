@@ -112,10 +112,15 @@ public class Graph {
       * @throws StandaloneNodeException if node with no predecessors or next is found
       */
      public List<String> getPaths() throws CycleException, StandaloneNodeException {
+    	 System.out.println("GetPaths");
+    	 for (Activity h: heads) {
+    		 System.out.println(h);
+    	 }
     	 List<String> paths = new LinkedList<String>();
     	 for (Activity head: heads) {
     		 getPathsUtil(head, paths, new LinkedList<>());
     	 } 
+    	 System.out.println(paths.isEmpty());
     	 return paths;
      }
    
@@ -144,6 +149,7 @@ public class Graph {
     			 totalDuration += a.getDuration();
     		 }
     		 entry += "Total Duration: " + totalDuration;
+    		 System.out.println(entry.isEmpty());
     		 paths.add(entry);
     	 }
     	 for (Activity child: head.getNexts()) {
