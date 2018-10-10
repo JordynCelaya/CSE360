@@ -139,7 +139,7 @@ public class inputTab extends JPanel {
 	         	String strList = "";
 	        	 	
 	         	//making check boxes and calling addCheckBox method
-	    		etab.addEditCBox(activity, dependencies, duration);
+	    		etab.addAllAct(activity, dependencies, duration);
 	    	 		
 	         	//INPUT MORE THINGS HERE:
 	    		//add new activity to the path
