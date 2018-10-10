@@ -1,7 +1,7 @@
 package guiPackage;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.*;
 import javax.swing.*;
 
 
@@ -117,25 +117,23 @@ public class inputTab extends JPanel {
 		/**
 		 * Adds some activity information to the path and performs error handling. 
 		 * 
-		 * @param event the 
+		 * @param event when a user clicks on the button
 		 */
 		public void actionPerformed(ActionEvent event){
 			//adds some activity information to the path and does error handling
 			//extract the information from the textfields
 	        	 
-	        //Error handling
-	        //NEEDS FIXING: need to change null pointer so it only affects empty duration or activity
+	        
 	        try{
 	        	//need to get input from names, deps, and durs
-	        	//sooo many errors here
 	        	String activity = names.getText();
-	         	
+	        	String dependency = deps.getText();
 	        	String s1 = durs.getText();
 	         	int duration = Integer.parseInt(s1);
 	         	
-	         	String dependencies = deps.getText();
 	         	
-	     
+	         	
+	         	
 	         	String strList = "";
 	        	 	
 	         	//making check boxes and calling addCheckBox method

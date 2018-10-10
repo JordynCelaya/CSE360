@@ -1,7 +1,11 @@
 package guiPackage;
 import javax.swing.*;
 
+import main.ButtonListener;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 //import window.java;
 
@@ -71,7 +75,7 @@ public class main extends JApplet {
 	private viewTab vtab;
 	private JMenuBar menuBar;
 	private JMenu menu1, menu2;	//first and second tab of the menu bar
-	private JMenuItem reset, exit, about, help; //these are submenu items that will drop down from menu1 and menu2
+	private JButton reset, exit, about, help; //these are submenu items that will drop down from menu1 and menu2
 	Frame title;	//will be used to change the title of the applet window
 	
 	public void init() {
@@ -83,10 +87,16 @@ public class main extends JApplet {
 		menuBar = new JMenuBar();
 		menu1 = new JMenu("File");
 		menu2 = new JMenu("Help");
-		reset = new JMenuItem("Reset");
-		exit = new JMenuItem("Exit");
-		about = new JMenuItem("About this program");
-		help = new JMenuItem("Help");
+		reset = new JButton("Reset");
+		exit = new JButton("Exit");
+		about = new JButton("About this program");
+		help = new JButton("Help");
+		
+		ButtonListener lis = new ButtonListener();
+		reset.addActionListener(lis);
+		exit.addActionListener(lis);
+		about.addActionListener(lis);
+		help.addActionListener(lis);
 		
 		//put together the menu bar
 		menuBar.add(menu1);	//add menu1 and menu2 to the main menu bar
@@ -109,6 +119,53 @@ public class main extends JApplet {
 		setSize(800,500);	//set applet size (width, height)
 		
 		
-	}
+	}//end of constuctor
+	
+	private class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			JFrame f1 = new JFrame();
+			f1.setSize(700,400);
+			if(event.getSource() == reset){
+	        	int n = JOptionPane.showConfirmDialog(f1,"Are you sure you would like to clear all activities?","Reset",JOptionPane.YES_NO_OPTION);
+	        	//0 = Yes, 1 = No
+	        	if(n == 0){
+	        		//reset the whole program
+	        	}
+	        	//1 automatically cancels
+	        }
+	        else if(event.getSource() == exit){
+	        	int n = JOptionPane.showConfirmDialog(f1,"Are you sure you would like to exit the Activity Manager?","Exit",JOptionPane.YES_NO_OPTION);
+	        	//0 = Yes, 1 = No
+	        	if(n == 0){
+	        		//exit the whole program
+	        		System.exit(0);
+	        	}
+	        	//1 automatically cancels
+	        }
+	        else if(event.getSource() == about){
+	        	JOptionPane.showMessageDialog(f1, "About this program:"
+	        			+ "\n\nPurpose: This program manages multiple activities. This program easily allows a project manager to"
+	        			+ "\nset out a project plan for a team and identify the interaction between different tasks and the implications "
+	        			+ "\nthese interactions have on the various paths of work necessary for the project’s completion"
+	        			+ "\n\nSoftware Developers: Emily Belt, Jordyn Celaya, Ariana Kiaei, Jeremy Lacsa");
+	        }
+	        else if(event.getSource() == help){
+	        	JOptionPane.showMessageDialog(f1, "For specific error messages please see below. Else, please check the User Guide."
+	        			+ "\n\nError: Null Activity Name - There is no name entered for the current activity. "
+	        			+ "\n\t\tEnter the activity name into the “Enter Activity Name” field. "
+	        			+ "\nError: Duration Not An Integer - The number entered into the activity duration is not a valid integer. "
+	        			+ "\n\t\tEnter a valid integer into the “Activity Duration” field. "
+	        			+ "A valid integer is non-negative with no decimals."
+	        			+ "\nError: Null Duration - There is no duration entered for the current activity."
+	        			+ "\n\t\tEnter a valid integer into the “Activity Duration” field. "
+	        			+ "\nError: Activity Cycle Detected - A loop exists in the activity dependencies. "
+	        			+ "\n\t\tCheck activities for any circular-referencing dependencies and edit them."
+	        			+ "\nError: Standalone Activity Detected - An activity has no predecessor activity or dependent activity. "
+	        			+ "\n\t\tEnsure all activities are either dependent on another activity or have activities dependent on them. ");
+	        }
+	        	
+	             
+	         } //end of actionPerformed method
+	    } //end of ButtonListener class
 
 }

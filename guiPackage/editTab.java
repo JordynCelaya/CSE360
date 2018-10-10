@@ -62,7 +62,7 @@ import java.util.*;
  */
 
 public class editTab extends JPanel{
-	private Panel cboxpanel;
+	private static Panel cboxpanel;
 	
 	/**
 	 * Constructor for edit tab panel
@@ -78,24 +78,21 @@ public class editTab extends JPanel{
 	}
 	
 	/**
-	 * Adds a check box to the edit tab
+	 * Adds an activity to the list of all activities
 	 * 
 	 * @param activity the name of the activity
 	 * @param dependency the dependencies of the activity
 	 * @param duration the duration fo the activity
 	 */
-	public void addAllAct(String activity, String dependency, int duration){
+	public static void addAllAct(String activity, String dependency, int duration){
 		//this function adds a check box to the edit tab, using the input parameters activity, duration, and dependencies
 		JLabel l1;
 		l1 = new JLabel("Acvitity: "+activity+"\tDependencies: "+dependency+"\tDuration: "+duration);
-		
+				
 		cboxpanel.add(l1);
 	}
 
-	/**
-	 * CheckBoxListener class listens for when a checkbox is checked and performs an action if a button is pressed
-	 *
-	 */
+	
 
 	
 	//add a button listener function for Edit Selected
