@@ -126,7 +126,6 @@ public class inputTab extends JPanel {
 			//adds some activity information to the path and does error handling
 			//extract the information from the textfields
 	        	 
-	        
 	        try{
 	        	//need to get input from names, deps, and durs
 	        	String activity = names.getText();
@@ -145,6 +144,13 @@ public class inputTab extends JPanel {
 	         	
 	         	manager.addActivity(activity, dependencies, duration);
 	         	
+	         	//clearing input fields
+	         	JTextField ctrl = (JTextField) names;
+	            ctrl.setText("");
+	            JTextField ctrl1 = (JTextField) deps;
+	            ctrl1.setText("");
+	            JTextField ctrl2 = (JTextField) durs;
+	            ctrl2.setText("");
 	        	 	
 	         	message.setText("Activity added");
 	         	

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import activityPackage.exceptions.StandaloneNodeException;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -73,9 +75,10 @@ import java.util.LinkedList;
 class GraphTest {
 	/**
 	 * Tests a multiheaded, multipathed output. 1 -> 2 -> 3 and 0 -> 2 -> 3
+	 * @throws StandaloneNodeException 
 	 */
 	@Test
-	void MultiHeadAndPath() {
+	void MultiHeadAndPath() throws StandaloneNodeException {
 		List<Activity> heads = new LinkedList<>();
 		List<Activity> nodes = new LinkedList<>();
 		
