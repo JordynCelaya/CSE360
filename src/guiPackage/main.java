@@ -171,6 +171,7 @@ public class main extends JApplet {
 	        	JFileChooser fc = new JFileChooser();
 	        	int n = fc.showSaveDialog(report.getParent());	//int is for if the user pressed save or cancel
 	        		//0 is user pressed save, 1 is user pressed cancel
+	        	
 	        		
 	        	if(n == 0){
 	        		String name = fc.getName(); //retrieves the title that the user enters
