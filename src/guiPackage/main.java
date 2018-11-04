@@ -2,7 +2,6 @@ package guiPackage;
 import javax.swing.*;
 
 
-
 //import main.ButtonListener;
 
 import java.awt.*;
@@ -79,7 +78,7 @@ public class main extends JApplet {
 	private viewTab vtab;
 	private JMenuBar menuBar;
 	private JMenu menu1, menu2;	//first and second tab of the menu bar
-	private JButton reset, exit, about, help, report; //these are submenu items that will drop down from menu1 and menu2
+	private JButton reset, exit, about, help; //these are submenu items that will drop down from menu1 and menu2
 	Frame title;	//will be used to change the title of the applet window
 	public ActivityManager manager = new ActivityManager(); 
 	
@@ -96,21 +95,18 @@ public class main extends JApplet {
 		exit = new JButton("Exit");
 		about = new JButton("About this program");
 		help = new JButton("Help");
-		report = new JButton("Create report");
 		
 		ButtonListener lis = new ButtonListener();
 		reset.addActionListener(lis);
 		exit.addActionListener(lis);
 		about.addActionListener(lis);
 		help.addActionListener(lis);
-		report.addActionListener(lis);
 		
 		//put together the menu bar
 		menuBar.add(menu1);	//add menu1 and menu2 to the main menu bar
 		menuBar.add(menu2);
 		menu1.add(reset);	//add the menu items to the drop down list of menu1 and menu2
 		menu1.add(exit);
-		menu1.add(report);
 		menu2.add(about);
 		menu2.add(help);
 		
@@ -124,7 +120,7 @@ public class main extends JApplet {
 		title.setTitle("Activity Manager");	//change title
 		setJMenuBar(menuBar);	//add menu bar to the applet
 		getContentPane().add(tPane);	//add tabs to the main java frame
-		setSize(900,600);	//set applet size (width, height)
+		setSize(800,500);	//set applet size (width, height)
 		
 		
 	}//end of constuctor
@@ -159,26 +155,6 @@ public class main extends JApplet {
 	        		System.exit(0);
 	        	}
 	        	//1 automatically cancels
-	        }
-	        else if(event.getSource() == report){
-	        	//report requirements:
-	        	//Title for the report
-	        	//Date and time of creation
-	        	//List of all activities in alphanumeric order with current duration
-	        	//List of all paths with the activity names and total duration
-	        	
-	        	//pop up a file chooser when the button is pressed
-	        	JFileChooser fc = new JFileChooser();
-	        	int n = fc.showSaveDialog(report.getParent());	//int is for if the user pressed save or cancel
-	        		//0 is user pressed save, 1 is user pressed cancel
-	        	
-	        		
-	        	if(n == 0){
-	        		String name = fc.getName(); //retrieves the title that the user enters
-	        		System.out.println( fc.getSelectedFile());
-	        	}
-	        	
-	        	
 	        }
 	        else if(event.getSource() == about){
 	        	JOptionPane.showMessageDialog(f1, "About this program:"

@@ -67,63 +67,29 @@ import activityPackage.*;
  * 
  */
 public class viewTab extends JPanel{
-	private JPanel lp1, p1, p2, spanel;
-	private JLabel l1, l2;
-	private static JTextArea area, a2;
-	private JScrollPane spane, sp2;
-	private JButton b1, cpath;
+	//private Panel p1;
+	private static JTextArea area;
+	private JScrollPane spane;
+	private JButton b1;
 	public ActivityManager manager; 
 	
 	/**
 	 * Constructor for viewTab panel
 	 */
 	public viewTab(ActivityManager manager){
-		area = new JTextArea(10,10);
+		area = new JTextArea(20,40);
 		area.setEditable(false);	//prevents the user from inputting anything
-		area.setText("No Paths to Displlay");
-		a2 = new JTextArea(10, 10);
-		a2.setEditable(false);
-		a2.setText("No Critical Path to Display");
-		
+		area.setText("No paths to display");
 		spane = new JScrollPane(area);
-		sp2 = new JScrollPane(a2);
-		
-		l1 = new JLabel("Paths:");
-		l2 = new JLabel("Critical Path:");
-		
 		b1 = new JButton("Run");
-		cpath = new JButton("Generate Critical Path");
 		ButtonListener lis = new ButtonListener();
 		b1.addActionListener(lis);
-		cpath.addActionListener(lis);
-		
-		lp1 = new JPanel();
-		lp1.setLayout(new GridLayout(1, 2));
-		lp1.add(l1);
-		
-		
-		spanel = new JPanel();
-		spanel.setLayout(new GridLayout(1, 2));
-		spanel.add(spane);
-		
-		
-		p1 = new JPanel();
-		p1.setLayout(new BorderLayout());
-		p1.add(lp1, BorderLayout.NORTH);
-		p1.add(spanel, BorderLayout.CENTER);
-		
-		
-		p2 = new JPanel();
-		p2.setLayout(new GridLayout(1, 2));
-		p2.add(b1);
-		p2.add(cpath);
-		
 		this.manager = manager;
 		
 		setLayout(new BorderLayout());
 		
-		add(p1, BorderLayout.CENTER);
-		add(p2, BorderLayout.SOUTH);
+		add(spane, BorderLayout.CENTER);
+		add(b1, BorderLayout.SOUTH);
 	}
 	/**
 	 * Adds a path and puts it into the text area so it can be displayed to the user
@@ -135,30 +101,22 @@ public class viewTab extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == b1){
-				try {
-					System.out.println("About to view run");
-					List<String> output = manager.viewPath();
-					for (String s: output) {
-						System.out.println(s);
-					}
-					String singleOutput = "";
-					for (String s: output) {
-						singleOutput += s + "\n";  
-					}
-					area.setText(singleOutput);
-					
-				} catch (StandaloneNodeException e) {
-					area.setText("Error: Standalone Node Detected");
-				} catch (CycleException e) {
-					area.setText("Error: Cycle Detected");
+			try {
+				System.out.println("About to view run");
+				List<String> output = manager.viewPath();
+				for (String s: output) {
+					System.out.println(s);
 				}
-			}
-			else if(event.getSource() == cpath){
-				lp1.add(l2);
-				spanel.add(sp2);
-				a2.setText("No Critical Path to Display");
-				revalidate();
+				String singleOutput = "";
+				for (String s: output) {
+					singleOutput += s + "\n";  
+				}
+				area.setText(singleOutput);
+				
+			} catch (StandaloneNodeException e) {
+				area.setText("Error: Standalone Node Detected");
+			} catch (CycleException e) {
+				area.setText("Error: Cycle Detected");
 			}
 			
 		}
