@@ -141,6 +141,22 @@ public class ActivityManager {
 		return output;
 	}
 	
+
+	public void editActivityDuration(String name, int newDuration) {
+		System.out.println("inside edit.");
+        for (Activity i : nodeList) {
+            if(i.getName() == name) { //if the name of the current activity == name
+                i.setDuration(newDuration); //set new activity duration
+            }
+        }
+        for (Activity j : headList){
+        	if(j.getName() == name){
+        		j.setDuration(newDuration);
+        	}
+        }
+    }
+	
+	/* WE DONT NEED THESE
 	public void editActivityName(String oldName, String newName) {
         for (Activity i : nodeList) {
             if(i.getName() == oldName) { //if the name of the current activity == name
@@ -148,14 +164,6 @@ public class ActivityManager {
             }
         }
 	}
-
-	public void editActivityDuration(String name, int newDuration) {
-        for (Activity i : nodeList) {
-            if(i.getName() == name) { //if the name of the current activity == name
-                i.setDuration(newDuration); //set new activity duration
-            }
-        }
-    }
 
 	//the deletion of an activity is just the standard "arbitrary deletion" in a linked list
 	public void deleteActivity(String name) {
@@ -167,7 +175,7 @@ public class ActivityManager {
             }
         }
 	}
-
+*/
 	
 }
 	

@@ -2,7 +2,13 @@ package guiPackage;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import activityPackage.*;
+//import guiPackage.inputTab.ButtonListener;
+
 import java.util.*;
+import java.util.List;
+
 /**
  * <center>
  * <table cellpadding="5" cellspacing="5">
@@ -62,28 +68,52 @@ import java.util.*;
  */
 
 public class editTab extends JPanel{
-	private static Panel cboxpanel;
+	private JLabel menu, entName, entDur, message; //label for Enter activity name
+	private JTextField name, dur; //text field for entering activity name
+	
+	private static JPanel cboxpanel;
+	private JButton editButton;
+	public ActivityManager manager; 
 	
 	/**
 	 * Constructor for edit tab panel
 	 */
 	public editTab(){
-
-		cboxpanel = new Panel();
-
+		menu = new JLabel("Menu");
+		entName = new JLabel("Enter name of activity to edit:");
+		entDur = new JLabel("Enter new duration for activity:");
+		message = new JLabel(""); //leave blank. will be set to something else if an activity is added or an error pops up
+		message.setForeground(Color.RED);	//set text color to red
+		
+		name = new JTextField(25);
+		dur = new JTextField(25);
+		
+		cboxpanel = new JPanel();
+		cboxpanel.setLayout(new GridLayout(2,2));
+		cboxpanel.add(entName);
+		cboxpanel.add(name);
+		cboxpanel.add(entDur);
+		cboxpanel.add(dur);
+		
+		ButtonListener lis = new ButtonListener(); //listens for when the button is pushed
+		editButton = new JButton("Edit Activity");
+		editButton.addActionListener(lis);
 		
 		//add the buttons and panels to the tab window
 		setLayout(new BorderLayout());
-		add(cboxpanel, BorderLayout.CENTER);
+		add(cboxpanel, BorderLayout.NORTH);
+		add(editButton, BorderLayout.SOUTH);
+		add(message, BorderLayout.CENTER);
+		
 	}
-	
+	/*
 	/**
 	 * Adds an activity to the list of all activities
 	 * 
 	 * @param activity the name of the activity
 	 * @param dependency the dependencies of the activity
 	 * @param duration the duration fo the activity
-	 */
+	 *
 	public static void addAllAct(String activity, String dependency, int duration){
 		//this function adds a check box to the edit tab, using the input parameters activity, duration, and dependencies
 		JLabel l1;
@@ -91,10 +121,53 @@ public class editTab extends JPanel{
 				
 		cboxpanel.add(l1);
 	}
-
-	
-
+*/
 	
 	//add a button listener function for Edit Selected
-	//add a button listener function for Delete Selected
+	/**
+	 * The ButtonListener class 
+	 * 
+	 *
+	 */
+	private class ButtonListener implements ActionListener{
+		
+		/**
+		 * Edits an activity's duration and performs error handling. 
+		 * 
+		 * @param event when a user clicks on the button
+		 */
+		public void actionPerformed(ActionEvent event){
+			//adds some activity information to the path and does error handling
+			//extract the information from the text fields
+	        	 
+	        try{
+	        	//need to get input from names, deps, and durs
+	        	String activity = name.getText();
+	        	String s1 = dur.getText();
+	         	int duration = Integer.parseInt(s1);
+	         	
+	         	manager.editActivityDuration(activity, duration);
+	         	
+	         	//clearing input fields
+	         	JTextField ctrl = (JTextField) name;
+	            ctrl.setText("");
+	            JTextField ctrl2 = (JTextField) dur;
+	            ctrl2.setText("");
+	        	 	
+	         	message.setText("Activity edited");
+	         	
+	         }
+	        //catch exception for when a non-integer value is entered for duration
+	         catch(NumberFormatException ex){
+	        	 message.setText("Please enter an integer for the activity duration");
+	         }
+	        //catch exception for when one field does not have a value entered   
+	        catch(NullPointerException b){
+       		 message.setText("Please enter all fields");
+       	 	}
+	             
+	         } //end of actionPerformed method
+	    } //end of ButtonListener class
+	
+		
 }
