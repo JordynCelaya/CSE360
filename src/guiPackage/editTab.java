@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import activityPackage.*;
 //import guiPackage.inputTab.ButtonListener;
+import activityPackage.exceptions.NodeNotFound;
 
 import java.util.*;
 import java.util.List;
@@ -168,6 +169,9 @@ public class editTab extends JPanel{
 	        catch(NullPointerException b){
        		 message.setText("Please enter all fields");
        	 	}
+	        catch(NodeNotFound not){
+	        	message.setText("Node not found. Please check name entered and try again.");
+	        }
 	             
 	         } //end of actionPerformed method
 	    } //end of ButtonListener class

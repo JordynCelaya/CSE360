@@ -2,8 +2,8 @@ package activityPackage;
 import java.util.LinkedList;
 import java.util.List;
 
-import activityPackage.exceptions.CycleException;
-import activityPackage.exceptions.StandaloneNodeException;
+import activityPackage.exceptions.*;
+
 
 /**
  * <center>
@@ -142,16 +142,28 @@ public class ActivityManager {
 	}
 	
 
-	public void editActivityDuration(String name, int newDuration) {
+	public void editActivityDuration(String name, int newDuration) throws NodeNotFound {
 		System.out.println("inside edit.");
+		Boolean found = false;
         for (Activity i : nodeList) {
             if(i.getName().equals(name)) { //if the name of the current activity is activity we are looking for
                 i.setDuration(newDuration); //set new activity duration
+                found = true;
                 //System.out.println("found");
             }
         }
-    }
-	
+        for (Activity j : headList) {
+            if(j.getName().equals(name)) { //if the name of the current activity is activity we are looking for
+                j.setDuration(newDuration); //set new activity duration
+                found = true;
+                //System.out.println("found");
+            }
+        }
+        
+        if(found == false){
+        	throw new NodeNotFound();
+        }
+	}
 	/* WE DONT NEED THESE
 	public void editActivityName(String oldName, String newName) {
         for (Activity i : nodeList) {
