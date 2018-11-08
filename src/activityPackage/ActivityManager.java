@@ -145,14 +145,10 @@ public class ActivityManager {
 	public void editActivityDuration(String name, int newDuration) {
 		System.out.println("inside edit.");
         for (Activity i : nodeList) {
-            if(i.getName() == name) { //if the name of the current activity == name
+            if(i.getName().equals(name)) { //if the name of the current activity is activity we are looking for
                 i.setDuration(newDuration); //set new activity duration
+                //System.out.println("found");
             }
-        }
-        for (Activity j : headList){
-        	if(j.getName() == name){
-        		j.setDuration(newDuration);
-        	}
         }
     }
 	

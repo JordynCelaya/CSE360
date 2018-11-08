@@ -78,7 +78,7 @@ public class editTab extends JPanel{
 	/**
 	 * Constructor for edit tab panel
 	 */
-	public editTab(){
+	public editTab(ActivityManager manager){
 		menu = new JLabel("Menu");
 		entName = new JLabel("Enter name of activity to edit:");
 		entDur = new JLabel("Enter new duration for activity:");
@@ -88,6 +88,10 @@ public class editTab extends JPanel{
 		name = new JTextField(25);
 		dur = new JTextField(25);
 		
+		ButtonListener lis = new ButtonListener(); //listens for when the button is pushed
+		editButton = new JButton("Edit Activity");
+		editButton.addActionListener(lis);
+		
 		cboxpanel = new JPanel();
 		cboxpanel.setLayout(new GridLayout(2,2));
 		cboxpanel.add(entName);
@@ -95,15 +99,12 @@ public class editTab extends JPanel{
 		cboxpanel.add(entDur);
 		cboxpanel.add(dur);
 		
-		ButtonListener lis = new ButtonListener(); //listens for when the button is pushed
-		editButton = new JButton("Edit Activity");
-		editButton.addActionListener(lis);
-		
 		//add the buttons and panels to the tab window
 		setLayout(new BorderLayout());
 		add(cboxpanel, BorderLayout.NORTH);
 		add(editButton, BorderLayout.SOUTH);
 		add(message, BorderLayout.CENTER);
+		this.manager = manager;
 		
 	}
 	/*
@@ -146,7 +147,9 @@ public class editTab extends JPanel{
 	        	String s1 = dur.getText();
 	         	int duration = Integer.parseInt(s1);
 	         	
+	         	System.out.println("before edit");
 	         	manager.editActivityDuration(activity, duration);
+	         	System.out.println("after edit");
 	         	
 	         	//clearing input fields
 	         	JTextField ctrl = (JTextField) name;
