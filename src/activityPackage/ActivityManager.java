@@ -156,16 +156,15 @@ public class ActivityManager {
             }
         }
     }
-
-	//the deletion of an activity is just the standard "arbitrary deletion" in a linked list
-	public void deleteActivity(String name) {
-		for (Activity i : nodeList) {
-            if(i.getName() == name) { //if the name of the current activity == name
-                //get the previous activity of the activity to be deleted - call this "previous"
-                //set the next of "previous" to the next of the activity to be deleted
-
-            }
-        }
+	
+	public List<String> getCriticalPaths() throws StandaloneNodeException, CycleException {
+		List<String> paths = viewPath();
+		for (int i = 0; i < paths.size(); i++) {
+			String temp = paths.get(i);
+			temp = (i+1) + ": " + temp;
+			paths.set(i, temp);
+		}
+		return paths; 
 	}
 
 	
