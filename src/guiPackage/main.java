@@ -86,7 +86,7 @@ public class main extends JApplet {
 		//constructor used to create the Java frame and initialize all of the private swing variables
 		tPane = new JTabbedPane();
 		itab = new inputTab(manager);
-		etab = new editTab();
+		etab = new editTab(manager);
 		vtab = new viewTab(manager);
 		menuBar = new JMenuBar();
 		menu1 = new JMenu("File");

@@ -2,8 +2,8 @@ package activityPackage;
 import java.util.LinkedList;
 import java.util.List;
 
-import activityPackage.exceptions.CycleException;
-import activityPackage.exceptions.StandaloneNodeException;
+import activityPackage.exceptions.*;
+
 
 /**
  * <center>
@@ -141,32 +141,51 @@ public class ActivityManager {
 		return output;
 	}
 	
+
+	public void editActivityDuration(String name, int newDuration) throws NodeNotFound {
+		System.out.println("inside edit.");
+		Boolean found = false;
+        for (Activity i : nodeList) {
+            if(i.getName().equals(name)) { //if the name of the current activity is activity we are looking for
+                i.setDuration(newDuration); //set new activity duration
+                found = true;
+                //System.out.println("found");
+            }
+        }
+        for (Activity j : headList) {
+            if(j.getName().equals(name)) { //if the name of the current activity is activity we are looking for
+                j.setDuration(newDuration); //set new activity duration
+                found = true;
+                //System.out.println("found");
+            }
+        }
+        
+        if(found == false){
+        	throw new NodeNotFound();
+        }
+	}
+/* WE DONT NEED THESE
 	public void editActivityName(String oldName, String newName) {
         for (Activity i : nodeList) {
             if(i.getName() == oldName) { //if the name of the current activity == name
                 i.setName(newName); //set new activity name
             }
         }
-	}
 
-	public void editActivityDuration(String name, int newDuration) {
-        for (Activity i : nodeList) {
+    }
+    
+
+	//the deletion of an activity is just the standard "arbitrary deletion" in a linked list
+	public void deleteActivity(String name) {
+		for (Activity i : nodeList) {
             if(i.getName() == name) { //if the name of the current activity == name
-                i.setDuration(newDuration); //set new activity duration
+                //get the previous activity of the activity to be deleted - call this "previous"
+                //set the next of "previous" to the next of the activity to be deleted
+
             }
         }
-    }
-	
-	public List<String> getCriticalPaths() throws StandaloneNodeException, CycleException {
-		List<String> paths = viewPath();
-		for (int i = 0; i < paths.size(); i++) {
-			String temp = paths.get(i);
-			temp = (i+1) + ": " + temp;
-			paths.set(i, temp);
-		}
-		return paths; 
 	}
-
+*/
 	
 }
 	
