@@ -164,28 +164,45 @@ public class ActivityManager {
         	throw new NodeNotFound();
         }
 	}
-/* WE DONT NEED THESE
-	public void editActivityName(String oldName, String newName) {
-        for (Activity i : nodeList) {
-            if(i.getName() == oldName) { //if the name of the current activity == name
-                i.setName(newName); //set new activity name
-            }
-        }
-
-    }
-    
-
-	//the deletion of an activity is just the standard "arbitrary deletion" in a linked list
-	public void deleteActivity(String name) {
-		for (Activity i : nodeList) {
-            if(i.getName() == name) { //if the name of the current activity == name
-                //get the previous activity of the activity to be deleted - call this "previous"
-                //set the next of "previous" to the next of the activity to be deleted
-
-            }
-        }
+	
+	public String getCriticalPaths() throws StandaloneNodeException, CycleException {
+		List<String> paths = viewPath();
+		String criticalPaths = "";
+		int criticalNumber = getNumberOfCPaths(paths);
+		for (int i = 0; i < criticalNumber; i++) {
+			String path = paths.get(i);
+			String nodeDetails = getNodeDetails(path);
+			criticalPaths += path + "\n       " + nodeDetails + "\n";
+		}
+		return criticalPaths;
 	}
-*/
+	
+	// Helper method for getCriticalPath
+	private String getNodeDetails(String path) {
+		String[] nodes = path.split(", ");
+		String details = "";
+		for (int i = 0; i < nodes.length - 1; i++) {
+			for (Activity a: nodeList) {
+				if (a.getName().equals(nodes[i])) {
+					details += "Node: " + a.getName() + ", Duration: " + a.getDuration() + "\n       ";
+				}
+			}
+		}
+		return details; 
+	}
+	
+	// Helper method to determine if there are multiple critical paths
+	private int getNumberOfCPaths(List<String> paths)  {
+		int amount = 1;
+		String critDuration = paths.get(0).split(": ")[1];
+		for (int i = 1; i < paths.size(); i++) {
+			String currentDuration = paths.get(i).split(": ")[1];
+			if (critDuration.equals(currentDuration)) {
+				amount++;
+			}
+		}
+		return amount; 
+	}
 	
 }
 	

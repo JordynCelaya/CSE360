@@ -140,8 +140,6 @@ public class main extends JApplet {
 	        	if(n == 0){
 	        		//reset the whole program 
 	        		vtab.clearTArea();
-	        		// ActivityManager newManager = new ActivityManager();
-	        		// manager = newManager;
 	        		manager.setNodeList(new LinkedList<>());
 	        		manager.setHeadList(new LinkedList<>());
 	        		

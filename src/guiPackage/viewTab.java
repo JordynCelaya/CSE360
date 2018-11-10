@@ -133,13 +133,13 @@ public class viewTab extends JPanel{
 	
 	public static void clearTArea() {
 		area.setText("");
+		a2.setText("");
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == b1){
                 try {
-                    System.out.println("About to view run");
                     List<String> output = manager.viewPath();
                     for (String s: output) {
                         System.out.println(s);
@@ -160,7 +160,21 @@ public class viewTab extends JPanel{
             else if(event.getSource() == cpath){
                 lp1.add(l2);
                 spanel.add(sp2);
-                a2.setText("No Critical Path to Display");
+                if (manager.getNodeList().isEmpty()) {
+                	a2.setText("No Critical Path to Display");
+                }
+                else {
+                	try {
+                        String output = manager.getCriticalPaths();
+                        a2.setText(output);
+                    }
+                    catch (StandaloneNodeException e) {
+                        a2.setText("Error: Standalone Node Detected");
+                    }
+                    catch (CycleException e) {
+                        a2.setText("Error: Cycle Detected");
+                    }
+                }
                 revalidate();
             }
 			
