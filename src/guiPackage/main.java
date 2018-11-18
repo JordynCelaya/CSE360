@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import activityPackage.*;
 
@@ -170,9 +174,36 @@ public class main extends JApplet {
                 //0 is user pressed save, 1 is user pressed cancel
                 
                 
-                if(n == 0){
-                    String name = fc.getName(); //retrieves the title that the user enters
-                    System.out.println( fc.getSelectedFile());
+                if(n == 0){ //if the user pressed save
+                    String fileName = (fc.getSelectedFile()).getName(); //retrieves the title that the user enters
+                    String filePath = fc.getSelectedFile().getAbsolutePath(); //gets the file directory for where it will be saved to
+
+                    //turn save location and name into the final file save destination
+                    String fileSaveLocation = filePath + fileName; //NOT SURE IF 100% CORRECT, SEE FILEWRITER OBJECT CREATION
+                    
+                    //create fileWriter object, if valid, write to location and close
+                    FileWriter fileWriter = new FileWriter("fileSaveLocation");                  
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    
+                    //WRITE TO THE FILE
+                    
+                    //write title of the report
+                    printWriter.printf("Activity Manager Report File\n");
+                    
+                    //write date and time of creation
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                	Date date = new Date();
+                    printWriter.printf("Created on " + dateFormat.format(date) + "\n\n");
+                    
+                    //write list of all activities in alphanumeric order with duration
+                    //printWriter.printf(ALPHANUMERIC ORDERED NODES);
+                    
+                    //write list of all paths with the activity names and total duration
+                    //printWriter.printf(LIST OF ALL PATHS);
+                    
+                    //save and close file
+                    fileWriter.close();
+                    
                 }
             }
 	        else if(event.getSource() == about){
